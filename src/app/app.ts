@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet, Router } from '@angular/router';
+import { Sidebar } from './components/sidebar/sidebar';
 import { Navbar } from './components/navbar/navbar';
-import { NgClass } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule],
+  standalone: true,
+  imports: [RouterOutlet, Sidebar, Navbar],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
+  router = inject(Router);
+
+  showNavigation() {
+    return !this.router.url.includes('/auth');
+  }
 }

@@ -1,1 +1,17 @@
-<router-outlet />
+<div class="flex min-h-screen bg-slate-50 dark:bg-black transition-colors duration-500">
+  @if (showNavigation()) {
+    <app-sidebar></app-sidebar>
+  }
+
+  <!-- Content Area -->
+  <div class="flex-grow flex flex-col min-w-0 transition-all duration-500">
+    @if (showNavigation()) {
+      <app-navbar></app-navbar>
+    }
+
+    <!-- Page Content -->
+    <main class="flex-grow">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
