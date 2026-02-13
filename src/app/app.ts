@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +8,11 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('angular-works');
+  titleForFun = 'angular-works for fun'
+
+  constructor(private router: Router) { }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
 }

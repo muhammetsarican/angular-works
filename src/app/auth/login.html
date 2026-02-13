@@ -1,0 +1,29 @@
+<main class="main">
+  <div class="content">
+    <p>Hello, {{ firstName }}</p>
+    <button
+      (click)="navigateToHome()"
+      class="border border-gray-300 rounded-md px-4 py-2 cursor-pointer hover:bg-gray-100 active:bg-gray-200"
+    >
+      Click me for route to login page
+    </button>
+    @if (showIfBlock) {
+      <p>Hello, {{ firstName }} as using if</p>
+    } @else {
+      <p>Hello, {{ firstName }} as using else</p>
+    }
+
+    @for (item of [1, 2, 3]; track $index) {
+      <p>Hello, {{ item }} as using for</p>
+    }
+
+    @switch (firstName) {
+      @case ('Muhammet') {
+        <p>Hello, {{ firstName }} as using switch</p>
+      }
+      @default {
+        <p>Hello, {{ firstName }} as using default</p>
+      }
+    }
+  </div>
+</main>
