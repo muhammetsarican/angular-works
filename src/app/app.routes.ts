@@ -8,17 +8,29 @@ export const routes: Routes = [
     path: '',
     canActivate: [authGuard],
     // canActivateChild: [childAuthGuard],
-    canDeactivate: [confirmLogoutGuard],
+    // canDeactivate: [confirmLogoutGuard],
     loadComponent: () => import('./pages/home/home').then((m) => m.Home),
     children: [
-      {
-        path: 'todo',
-        loadComponent: () => import('./pages/todo/todo').then((m) => m.Todo)
-      },
+      // {
+      //   path: 'todo',
+      //   loadComponent: () => import('./pages/todo/todo').then((m) => m.Todo)
+      // },
+      // {
+      //   path: 'products',
+      //   loadComponent: () => import('./pages/product/product').then((m) => m.Product)
+      // },
     ]
   },
   {
     path: 'login',
     loadComponent: () => import('./auth/login').then((m) => m.Login)
+  },
+  {
+    path: 'todo',
+    loadComponent: () => import('./pages/todo/todo').then((m) => m.Todo)
+  },
+  {
+    path: 'products',
+    loadComponent: () => import('./pages/product/product').then((m) => m.Product)
   },
 ];

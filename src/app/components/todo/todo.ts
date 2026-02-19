@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
-import { TodoPipe } from '../../pages/pipe/todo-pipe';
+import { TodoPipe } from '../../pipe/todo-pipe';
 import { CommonModule } from '@angular/common';
 
 @Component({

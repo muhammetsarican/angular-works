@@ -1,0 +1,60 @@
+<div class="flex flex-col gap-4 w-full">
+  <div class="flex items-center justify-between px-2">
+    <div class="flex items-center gap-3">
+      <div
+        class="w-2 h-2 bg-cyan-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(6,182,212,0.8)]"
+      ></div>
+      <h3 class="text-xs font-bold uppercase tracking-[0.3em] text-cyan-600 dark:text-cyan-400">
+        [ {{ title }}_STREAM ]
+      </h3>
+    </div>
+    <div class="text-[10px] text-slate-400 dark:text-slate-600 font-mono italic">
+      Records Found: {{ data.length }}
+    </div>
+  </div>
+
+  <div
+    class="relative overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 backdrop-blur-xl rounded-sm"
+  >
+    <!-- Header Scanline Effect -->
+    <div class="absolute top-0 left-0 w-full h-[1px] bg-cyan-500/20 z-10"></div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr
+            class="border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30"
+          >
+            <th
+              *ngFor="let key of objectKeys"
+              class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400"
+            >
+              // {{ key | titlecase }}
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 dark:divide-slate-800/50">
+          <tr
+            *ngFor="let row of data; let i = index"
+            class="group hover:bg-cyan-50/30 dark:hover:bg-cyan-500/5 transition-colors duration-300"
+          >
+            <td
+              *ngFor="let key of objectKeys"
+              class="px-6 py-4 text-sm font-light text-slate-700 dark:text-slate-300 group-hover:text-cyan-600 dark:group-hover:text-cyan-400"
+            >
+              {{ row[key] }}
+            </td>
+          </tr>
+          <tr *ngIf="data.length === 0">
+            <td
+              [attr.colspan]="objectKeys.length"
+              class="px-6 py-10 text-center italic text-slate-400 dark:text-slate-600"
+            >
+              NO DATA DETECTED IN STREAM...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
