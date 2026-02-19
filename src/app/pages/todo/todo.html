@@ -3,126 +3,34 @@
 >
   <header class="flex flex-col gap-2">
     <h1 class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white uppercase">
-      &gt; Tasks_Matrix_v4.2
+      &gt; Tasks_Matrix_v4.2 &gt; {{ today | date: 'dd.MM.yy' }}
     </h1>
     <div
       class="h-px w-full bg-gradient-to-r from-cyan-600/50 dark:from-cyan-500/50 to-transparent"
     ></div>
   </header>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    @for (todo of todos; track todo.id) {
-      <!-- Task Card -->
-      <div
-        class="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/20 p-6 flex flex-col gap-4 group relative overflow-hidden"
-      >
-        <!-- Priority Indicator Strip -->
-        <div
-          class="absolute left-0 top-0 bottom-0 w-1"
-          [class.bg-red-500]="todo.priority === 'high'"
-          [class.bg-amber-500]="todo.priority === 'medium'"
-          [class.bg-emerald-500]="todo.priority === 'low'"
-        ></div>
-
-        <div class="flex justify-between items-start">
-          <span class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-widest"
-            >ID_TASK_{{ todo.id }}</span
-          >
-          <div class="flex gap-2">
-            <!-- Edit Button -->
-            <button
-              (click)="openEditModal(todo)"
-              class="p-1 text-slate-400 hover:text-cyan-500 transition-colors"
-              title="Edit Task"
-            >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                />
-              </svg>
-            </button>
-            <!-- Delete Button -->
-            <button
-              (click)="delete(todo.id)"
-              class="p-1 text-slate-400 hover:text-red-500 transition-colors"
-              title="Delete Task"
-            >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <div class="flex justify-between items-center -mt-2">
-          @if (todo.status === 'done') {
-            <div
-              class="px-2 py-0.5 border border-emerald-600 dark:border-emerald-500 text-[8px] text-emerald-700 dark:text-emerald-400 uppercase font-bold"
-            >
-              Done
-            </div>
-          } @else if (todo.status === 'active') {
-            <div
-              class="px-2 py-0.5 border border-cyan-600 dark:border-cyan-500 text-[8px] text-cyan-700 dark:text-cyan-400 uppercase font-bold"
-            >
-              Active
-            </div>
-          } @else {
-            <div
-              class="px-2 py-0.5 border border-amber-600 dark:border-amber-500 text-[8px] text-amber-700 dark:text-amber-400 uppercase font-bold"
-            >
-              Pending
-            </div>
-          }
-        </div>
-
-        <p class="text-sm font-bold text-slate-700 dark:text-slate-300">
-          {{ todo.name }}
-        </p>
-
-        <div
-          class="mt-auto pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px]"
-        >
-          <span
-            class="uppercase font-bold tracking-widest"
-            [class.text-red-500]="todo.priority === 'high'"
-            [class.text-amber-500]="todo.priority === 'medium'"
-            [class.text-emerald-500]="todo.priority === 'low'"
-          >
-            Priority: {{ todo.priority }}
-          </span>
-          <span class="text-cyan-600 dark:text-cyan-500">100%</span>
-        </div>
+  <div class="flex flex-col gap-2">
+    <label class="text-[10px] text-slate-400 dark:text-slate-600 tracking-widest uppercase">
+      [ Search_Registry ]
+    </label>
+    <div class="relative max-w-md">
+      <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+        <span class="text-cyan-600 dark:text-cyan-500 font-bold">&gt;</span>
       </div>
-    }
-
-    <!-- Placeholder for new task -->
-    <div
-      (click)="isCreateModalOpen = true"
-      class="border-2 border-dashed border-slate-200 dark:border-slate-800 p-6 flex flex-col items-center justify-center gap-4 text-slate-400 dark:text-slate-600 hover:border-cyan-500/50 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all cursor-pointer group"
-    >
-      <svg
-        class="w-8 h-8 group-hover:scale-110 transition-transform"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v16m8-8H4" />
-      </svg>
-      <span class="text-[10px] uppercase tracking-widest font-bold">Append_New_Task</span>
+      <input
+        type="text"
+        [(ngModel)]="todoService.search"
+        placeholder="SCAN_FOR_KEYWORDS..."
+        class="w-full pl-9 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 outline-none text-xs tracking-[0.2em] uppercase transition-all"
+      />
     </div>
   </div>
 
+  <todo-component></todo-component>
+
   <!-- Create Task Modal -->
-  @if (isCreateModalOpen) {
+  @if (todoService.isCreateModalOpen) {
     <div
       class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm transition-all duration-300"
     >
@@ -136,7 +44,10 @@
           <h2 class="text-xl font-black tracking-tighter text-slate-900 dark:text-white uppercase">
             &gt; Initializing_New_Task
           </h2>
-          <button (click)="isCreateModalOpen = false" class="text-slate-400 hover:text-slate-200">
+          <button
+            (click)="todoService.isCreateModalOpen = false"
+            class="text-slate-400 hover:text-slate-200"
+          >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
@@ -152,13 +63,13 @@
 
         <footer class="mt-4 flex gap-3">
           <button
-            (click)="isCreateModalOpen = false"
+            (click)="todoService.isCreateModalOpen = false"
             class="flex-1 border border-slate-200 dark:border-slate-800 p-3 text-[10px] uppercase font-black tracking-widest text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
           >
             Abort_Operation
           </button>
           <button
-            (click)="create()"
+            (click)="todoService.create()"
             class="flex-1 bg-cyan-600/10 border border-cyan-500/50 text-cyan-600 dark:text-cyan-400 p-3 text-[10px] uppercase font-black tracking-widest hover:bg-cyan-600 hover:text-white transition-all shadow-lg shadow-cyan-500/20"
           >
             Execute_Commit
@@ -169,7 +80,7 @@
   }
 
   <!-- Edit Task Modal -->
-  @if (isEditModalOpen) {
+  @if (todoService.isEditModalOpen) {
     <div
       class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm transition-all duration-300"
     >
@@ -183,7 +94,10 @@
           <h2 class="text-xl font-black tracking-tighter text-slate-900 dark:text-white uppercase">
             &gt; Updating_Task_Parameters
           </h2>
-          <button (click)="isEditModalOpen = false" class="text-slate-400 hover:text-slate-200">
+          <button
+            (click)="todoService.isEditModalOpen = false"
+            class="text-slate-400 hover:text-slate-200"
+          >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
@@ -199,13 +113,13 @@
 
         <footer class="mt-4 flex gap-3">
           <button
-            (click)="isEditModalOpen = false"
+            (click)="todoService.isEditModalOpen = false"
             class="flex-1 border border-slate-200 dark:border-slate-800 p-3 text-[10px] uppercase font-black tracking-widest text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
           >
             Abort_Update
           </button>
           <button
-            (click)="update()"
+            (click)="todoService.update()"
             class="flex-1 bg-amber-600/10 border border-amber-500/50 text-amber-600 dark:text-amber-400 p-3 text-[10px] uppercase font-black tracking-widest hover:bg-amber-600 hover:text-white transition-all shadow-lg shadow-amber-500/20"
           >
             Apply_Parameters
@@ -223,7 +137,7 @@
           >Task_Identifier</label
         >
         <input
-          [(ngModel)]="taskNameModal"
+          [(ngModel)]="todoService.taskNameModal"
           type="text"
           placeholder="e.g. Implement_Neural_Link"
           class="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 p-3 text-sm focus:outline-none focus:border-cyan-500/50 transition-colors"
@@ -236,25 +150,25 @@
         >
         <div class="grid grid-cols-3 gap-2">
           <button
-            (click)="taskPriorityModal = 'low'"
-            [class.border-emerald-500]="taskPriorityModal === 'low'"
-            [class.text-emerald-500]="taskPriorityModal === 'low'"
+            (click)="todoService.taskPriorityModal = 'low'"
+            [class.border-emerald-500]="todoService.taskPriorityModal === 'low'"
+            [class.text-emerald-500]="todoService.taskPriorityModal === 'low'"
             class="border border-slate-200 dark:border-slate-800 p-3 text-[10px] uppercase font-bold hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
           >
             Low
           </button>
           <button
-            (click)="taskPriorityModal = 'medium'"
-            [class.border-amber-500]="taskPriorityModal === 'medium'"
-            [class.text-amber-500]="taskPriorityModal === 'medium'"
+            (click)="todoService.taskPriorityModal = 'medium'"
+            [class.border-amber-500]="todoService.taskPriorityModal === 'medium'"
+            [class.text-amber-500]="todoService.taskPriorityModal === 'medium'"
             class="border border-slate-200 dark:border-slate-800 p-3 text-[10px] uppercase font-bold hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
           >
             Medium
           </button>
           <button
-            (click)="taskPriorityModal = 'high'"
-            [class.border-red-500]="taskPriorityModal === 'high'"
-            [class.text-red-500]="taskPriorityModal === 'high'"
+            (click)="todoService.taskPriorityModal = 'high'"
+            [class.border-red-500]="todoService.taskPriorityModal === 'high'"
+            [class.text-red-500]="todoService.taskPriorityModal === 'high'"
             class="border border-slate-200 dark:border-slate-800 p-3 text-[10px] uppercase font-bold hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
           >
             High
@@ -267,7 +181,7 @@
           >Core_Directives</label
         >
         <textarea
-          [(ngModel)]="taskDetailModal"
+          [(ngModel)]="todoService.taskDetailModal"
           rows="3"
           placeholder="Enter task parameters..."
           class="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 p-3 text-sm focus:outline-none focus:border-cyan-500/50 transition-colors resize-none"
@@ -276,7 +190,7 @@
 
       <div class="flex items-center gap-3 mt-2">
         <input
-          [(ngModel)]="taskRepeatEveryMonthModal"
+          [(ngModel)]="todoService.taskRepeatEveryMonthModal"
           type="checkbox"
           id="repeat"
           class="w-4 h-4 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500 bg-slate-50 dark:bg-slate-800/50"

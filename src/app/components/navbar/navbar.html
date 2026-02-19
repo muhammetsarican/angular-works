@@ -112,11 +112,20 @@
       </div>
 
       <button
-        class="px-4 py-1.5 border border-cyan-600/40 dark:border-cyan-500/40 text-[10px] uppercase tracking-widest text-cyan-700 dark:text-cyan-400 hover:bg-cyan-600 dark:hover:bg-cyan-500 hover:text-white dark:hover:text-black transition-all relative overflow-hidden group"
+        class="px-4 py-1.5 border border-cyan-600/40 dark:border-cyan-500/40 text-[10px] uppercase tracking-widest text-cyan-700 dark:text-cyan-400 hover:bg-cyan-600 dark:hover:bg-cyan-500 hover:text-white dark:hover:text-black transition-all relative overflow-hidden group cursor-pointer"
       >
         <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-cyan-500"></div>
         <div class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-cyan-500"></div>
         {{ transService.translate('TERMINATE') }}
+      </button>
+      <button
+        type="button"
+        class="px-4 py-1.5 border border-rose-600/40 dark:border-rose-500/40 text-[10px] uppercase tracking-widest text-rose-700 dark:text-rose-400 hover:bg-rose-600 dark:hover:bg-rose-500 hover:text-white dark:hover:text-black transition-all relative overflow-hidden group cursor-pointer"
+        (click)="logout()"
+      >
+        <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-rose-500"></div>
+        <div class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-rose-500"></div>
+        {{ transService.translate('LOGOUT') }}
       </button>
     </div>
   </div>

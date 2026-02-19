@@ -1,0 +1,110 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  @for (todo of todoService.todos | todo: todoService.search; track todo.id) {
+    <!-- Task Card -->
+    <div
+      class="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/20 p-6 flex flex-col gap-4 group relative overflow-hidden"
+    >
+      <!-- Priority Indicator Strip -->
+      <div
+        class="absolute left-0 top-0 bottom-0 w-1"
+        [class.bg-red-500]="todo.priority === 'high'"
+        [class.bg-amber-500]="todo.priority === 'medium'"
+        [class.bg-emerald-500]="todo.priority === 'low'"
+      ></div>
+
+      <div class="flex justify-between items-start">
+        <span class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-widest"
+          >ID_TASK_{{ todo.id }} {{ '1700.25' | currency: 'TRY' : 'symbol-narrow' }}</span
+        >
+        <div class="flex gap-2">
+          <!-- Edit Button -->
+          <button
+            (click)="todoService.openEditModal(todo)"
+            class="p-1 text-slate-400 hover:text-cyan-500 transition-colors"
+            title="Edit Task"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+              />
+            </svg>
+          </button>
+          <!-- Delete Button -->
+          <button
+            (click)="todoService.delete(todo.id)"
+            class="p-1 text-slate-400 hover:text-red-500 transition-colors"
+            title="Delete Task"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center -mt-2">
+        @if (todo.status === 'done') {
+          <div
+            class="px-2 py-0.5 border border-emerald-600 dark:border-emerald-500 text-[8px] text-emerald-700 dark:text-emerald-400 uppercase font-bold"
+          >
+            Done
+          </div>
+        } @else if (todo.status === 'active') {
+          <div
+            class="px-2 py-0.5 border border-cyan-600 dark:border-cyan-500 text-[8px] text-cyan-700 dark:text-cyan-400 uppercase font-bold"
+          >
+            Active
+          </div>
+        } @else {
+          <div
+            class="px-2 py-0.5 border border-amber-600 dark:border-amber-500 text-[8px] text-amber-700 dark:text-amber-400 uppercase font-bold"
+          >
+            Pending
+          </div>
+        }
+      </div>
+
+      <p class="text-sm font-bold text-slate-700 dark:text-slate-300">
+        {{ todo.name | uppercase | lowercase | titlecase }}
+      </p>
+
+      <div
+        class="mt-auto pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px]"
+      >
+        <span
+          class="uppercase font-bold tracking-widest"
+          [class.text-red-500]="todo.priority === 'high'"
+          [class.text-amber-500]="todo.priority === 'medium'"
+          [class.text-emerald-500]="todo.priority === 'low'"
+        >
+          Priority: {{ todo.priority }}
+        </span>
+        <span class="text-cyan-600 dark:text-cyan-500">100%</span>
+      </div>
+    </div>
+  }
+
+  <!-- Placeholder for new task -->
+  <div
+    (click)="todoService.isCreateModalOpen = true"
+    class="border-2 border-dashed border-slate-200 dark:border-slate-800 p-6 flex flex-col items-center justify-center gap-4 text-slate-400 dark:text-slate-600 hover:border-cyan-500/50 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all cursor-pointer group"
+  >
+    <svg
+      class="w-8 h-8 group-hover:scale-110 transition-transform"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v16m8-8H4" />
+    </svg>
+    <span class="text-[10px] uppercase tracking-widest font-bold">Append_New_Task</span>
+  </div>
+</div>

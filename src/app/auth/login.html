@@ -87,6 +87,42 @@
             >
           </p>
 
+          <form class="flex flex-col gap-2" (ngSubmit)="navigateToHome()">
+            <label class="text-[10px] uppercase tracking-widest text-slate-400 font-bold"
+              >Protocol_Identity_Override</label
+            >
+            <input
+              id="firstName"
+              [(ngModel)]="firstName"
+              placeholder="Enter Identity..."
+              autocomplete="off"
+              required
+              minlength="3"
+              appValidate
+              class="bg-slate-50 dark:bg-slate-900/40 border border-cyan-200 dark:border-cyan-500/30 p-3 text-sm focus:outline-none focus:border-cyan-500/50 text-cyan-700 dark:text-cyan-400 transition-colors"
+            />
+            <p class="text-red-500 text-xs"></p>
+            <input
+              id="password"
+              [(ngModel)]="password"
+              type="password"
+              placeholder="Enter Password..."
+              required
+              minlength="8"
+              appValidate
+              class="bg-slate-50 dark:bg-slate-900/40 border border-cyan-200 dark:border-cyan-500/30 p-3 text-sm focus:outline-none focus:border-cyan-500/50 text-cyan-700 dark:text-cyan-400 transition-colors"
+            />
+            <p class="text-red-500 text-xs"></p>
+            <div class="flex justify-end items-center">
+              <button
+                type="submit"
+                class="w-fit bg-cyan-600 dark:bg-cyan-500 text-gray-900 p-3 text-sm focus:outline-none focus:border-cyan-500/50 text-cyan-700 transition-colors"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+
           <div class="flex gap-4">
             <button
               (click)="navigateToHome()"
