@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanDeactivateFn } from '@angular/router';
-import { DialogService } from '../../services/dialog.service';
+import { DialogService } from '../services/dialog.service';
 
 export const confirmLogoutGuard: CanDeactivateFn<any> = (component, currentRoute, currentState, nextState) => {
   const dialogService = inject(DialogService);

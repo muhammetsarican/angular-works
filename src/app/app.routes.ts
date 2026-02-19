@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './pages/guard/auth-guard';
-import { childAuthGuard } from './pages/guard/child-auth-guard';
-import { confirmLogoutGuard } from './pages/guard/confirm-logout-guard';
+import { authGuard } from './guard/auth-guard';
+import { childAuthGuard } from './guard/child-auth-guard';
+import { confirmLogoutGuard } from './guard/confirm-logout-guard';
 
 export const routes: Routes = [
   {

@@ -1,0 +1,111 @@
+<div
+  class="flex flex-col gap-10 p-10 bg-slate-50 dark:bg-black text-slate-800 dark:text-slate-300 font-mono transition-colors duration-500 min-h-full"
+>
+  <section
+    class="flex flex-col gap-4 p-6 border border-cyan-200 dark:border-cyan-500/30 bg-white dark:bg-slate-900/40 backdrop-blur-xl rounded-sm relative overflow-hidden shadow-sm dark:shadow-none"
+  >
+    <div
+      class="absolute top-0 left-0 w-1 h-full bg-cyan-600 dark:bg-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.8)]"
+    ></div>
+    <p class="text-xl tracking-tighter">
+      &gt; {{ transService.translate('WELCOME') }},
+      <span
+        appColorize="Muhammet"
+        class="font-black text-cyan-700 dark:text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]"
+        >{{ name }}{{ titleForFun }}</span
+      >
+    </p>
+    <button
+      (click)="navigateToLogin()"
+      class="w-fit border border-cyan-600 dark:border-cyan-500 px-8 py-3 bg-cyan-600/5 dark:bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 uppercase tracking-[0.2em] text-xs font-bold hover:bg-cyan-600 dark:hover:bg-cyan-500 hover:text-white dark:hover:text-black transition-all duration-500 shadow-[0_0_10px_rgba(6,182,212,0.1)] dark:shadow-[0_0_20px_rgba(6,182,212,0.6)]"
+      [ngClass]="{
+        'border-red-600 text-red-600 dark:text-red-500 bg-red-500/5 dark:bg-red-500/10 shadow-[0_0_15px_rgba(220,38,38,0.2)] dark:shadow-[0_0_15px_rgba(220,38,38,0.4)]':
+          titleForFun === 'Muhammet',
+      }"
+    >
+      {{ transService.translate('EXECUTE_LOGIN') }}
+    </button>
+  </section>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <section class="flex flex-col gap-3 group">
+      <label
+        for="name"
+        class="text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-500 group-focus-within:text-cyan-600 dark:group-focus-within:text-cyan-400 transition-colors"
+      >
+        [ {{ transService.translate('IDENTITY_LINK') }}_01 ]
+      </label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 p-4 text-cyan-900 dark:text-cyan-200 outline-none focus:border-cyan-400 dark:focus:border-cyan-500/50 focus:bg-slate-50 dark:focus:bg-slate-900 transition-all placeholder-slate-300 dark:placeholder-slate-700"
+        [class.focus:border-red-500]="titleForFun === 'Muhammet'"
+        (input)="onNameChange($event)"
+        placeholder="{{ transService.translate('AWAITING_ID') }}"
+      />
+      <p class="text-[10px] text-cyan-600 dark:text-cyan-500/50">Data Stream: {{ inputModel }}</p>
+    </section>
+
+    <section class="flex flex-col gap-3 group">
+      <label
+        for="inputModel"
+        class="text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-500 group-focus-within:text-purple-600 dark:group-focus-within:text-purple-400 transition-colors"
+      >
+        [ {{ transService.translate('NEURAL_SYNC') }}_02 ]
+      </label>
+      <input
+        id="inputModel"
+        class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 p-4 text-purple-900 dark:text-purple-200 outline-none focus:border-purple-400 dark:focus:border-purple-500/50 focus:bg-slate-50 dark:focus:bg-slate-900 transition-all"
+        type="text"
+        [(ngModel)]="inputModel"
+        placeholder="{{ transService.translate('INPUT_PARAMS') }}"
+      />
+    </section>
+
+    <section class="flex flex-col gap-3 group md:col-span-2">
+      <label
+        for="gender"
+        class="text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-500 group-focus-within:text-emerald-600 dark:group-focus-within:text-emerald-400 transition-colors"
+      >
+        [ {{ transService.translate('BIO_CLASSIFICATION') }}_03 ] : {{ gender || 'UNDEFINED' }}
+      </label>
+      <div class="relative">
+        <select
+          name="gender"
+          id="gender"
+          class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 p-4 text-emerald-900 dark:text-emerald-200 outline-none focus:border-emerald-400 dark:focus:border-emerald-500/50 focus:bg-slate-50 dark:focus:bg-slate-900 appearance-none cursor-pointer"
+          [(ngModel)]="gender"
+        >
+          <option value="" class="bg-white dark:bg-slate-900 text-slate-400 dark:text-slate-500">
+            Select Protocol
+          </option>
+          <option
+            value="male"
+            class="bg-white dark:bg-slate-900 text-emerald-600 dark:text-emerald-400"
+          >
+            {{ transService.translate('MALE') }}
+          </option>
+          <option
+            value="female"
+            class="bg-white dark:bg-slate-900 text-pink-600 dark:text-pink-400"
+          >
+            {{ transService.translate('FEMALE') }}
+          </option>
+        </select>
+        <div
+          class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 dark:text-slate-600"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            ></path>
+          </svg>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
