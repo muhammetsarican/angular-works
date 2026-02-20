@@ -1,0 +1,127 @@
+<div class="options-container">
+  <header class="options-header">
+    <h1 class="title">{{ transService.translate('NAV_SETTINGS') }}</h1>
+    <p class="subtitle">{{ transService.translate('SYSTEM_ARCH') }}</p>
+  </header>
+
+  <div class="options-grid">
+    <app-profile-section
+      class="full-width"
+      [appName]="optionsService.appName"
+      (myEvent)="onMyEvent($event)"
+    ></app-profile-section>
+    <!-- Appearance Section -->
+    <section class="option-card glass">
+      <div class="card-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l.707.707M6.343 6.343l.707-.707M14.5 12a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
+          />
+        </svg>
+      </div>
+      <div class="card-content">
+        <h3>{{ transService.translate('APPEARANCE') }}</h3>
+        <p>{{ transService.translate('APPEARANCE_DESC') }}</p>
+
+        <div class="theme-toggle" (click)="toggleTheme()">
+          <span class="label">{{ transService.translate('DARK_MODE') }}</span>
+          <div class="toggle-switch" [class.active]="themeService.isDark()">
+            <div class="switch-handle"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Language Section -->
+    <section class="option-card glass">
+      <div class="card-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
+          />
+        </svg>
+      </div>
+      <div class="card-content">
+        <h3>{{ transService.translate('LANGUAGE') }}</h3>
+        <p>{{ transService.translate('LANGUAGE_DESC') }}</p>
+
+        <div class="language-options">
+          @for (lang of languages; track lang.code) {
+            <button
+              class="lang-btn"
+              [class.active]="transService.lang() === lang.code"
+              (click)="setLanguage(lang.code)"
+            >
+              <span class="flag">{{ lang.flag }}</span>
+              <span class="name">{{ lang.label }}</span>
+            </button>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Security Section (Dummy) -->
+    <section class="option-card glass">
+      <div class="card-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+          />
+        </svg>
+      </div>
+      <div class="card-content">
+        <h3>{{ transService.translate('ENCRYPTION') }}</h3>
+        <p>{{ transService.translate('ENCRYPTION_DESC') }}</p>
+        <button class="action-btn">{{ transService.translate('MANAGE_SECURITY') }}</button>
+      </div>
+    </section>
+
+    <!-- Advanced Section (Dummy) -->
+    <section class="option-card glass">
+      <div class="card-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 10V3L4 14h7v7l9-11h-7z"
+          />
+        </svg>
+      </div>
+      <div class="card-content">
+        <h3>{{ transService.translate('RUNTIME') }}</h3>
+        <p>{{ transService.translate('RUNTIME_DESC') }}</p>
+        <div class="status-badge stable">{{ transService.translate('STABLE') }}</div>
+      </div>
+    </section>
+  </div>
+</div>

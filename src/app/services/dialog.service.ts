@@ -1,4 +1,5 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { TranslationService } from './translation.service';
 
 export interface DialogOptions {
   title?: string;
@@ -11,16 +12,17 @@ export interface DialogOptions {
   providedIn: 'root'
 })
 export class DialogService {
+  transService = inject(TranslationService);
   isOpen = signal(false);
   options = signal<DialogOptions | null>(null);
   private resolveCallback: ((value: boolean) => void) | null = null;
 
-  openConfirmDialog(message: string, title: string = 'Confirm Operation'): Promise<boolean> {
+  openConfirmDialog(message: string, title: string = this.transService.translate('CONFIRM_TITLE')): Promise<boolean> {
     this.options.set({
       message,
       title,
-      confirmLabel: 'Execute_Confirm',
-      cancelLabel: 'Abort_Action'
+      confirmLabel: this.transService.translate('EXECUTE_COMMIT'),
+      cancelLabel: this.transService.translate('ABORT_ACTION')
     });
     this.isOpen.set(true);
 

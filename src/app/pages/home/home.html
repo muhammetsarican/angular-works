@@ -68,7 +68,8 @@
         for="gender"
         class="text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-500 group-focus-within:text-emerald-600 dark:group-focus-within:text-emerald-400 transition-colors"
       >
-        [ {{ transService.translate('BIO_CLASSIFICATION') }}_03 ] : {{ gender || 'UNDEFINED' }}
+        [ {{ transService.translate('BIO_CLASSIFICATION') }}_03 ] :
+        {{ gender || transService.translate('UNDEFINED') }}
       </label>
       <div class="relative">
         <select
@@ -78,7 +79,7 @@
           [(ngModel)]="gender"
         >
           <option value="" class="bg-white dark:bg-slate-900 text-slate-400 dark:text-slate-500">
-            Select Protocol
+            {{ transService.translate('SELECT_PROTOCOL') }}
           </option>
           <option
             value="male"

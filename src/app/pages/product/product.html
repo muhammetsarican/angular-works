@@ -3,6 +3,10 @@
 >
   <!-- Product Data Table -->
   <section class="mt-4">
-    <app-table [data]="products" [columns]="productColumns" title="Product Inventory"></app-table>
+    <app-table
+      [data]="products"
+      [columns]="productColumns"
+      [title]="transService.translate('PRODUCT_INVENTORY')"
+    ></app-table>
   </section>
 </div>

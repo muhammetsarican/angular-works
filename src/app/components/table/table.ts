@@ -8,8 +8,8 @@ import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
   templateUrl: './table.html',
 })
 export class TableComponent {
-  @Input() data: any[] = [];
-  @Input() columns: string[] = [];
+  @Input({ required: true }) data!: any[];
+  @Input({ required: true }) columns!: string[];
   @Input() title: string = 'Data Log';
 
   get objectKeys() {

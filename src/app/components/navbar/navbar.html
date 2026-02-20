@@ -20,12 +20,12 @@
       </div>
       <div>
         <h1 class="text-sm font-bold tracking-[0.3em] text-slate-900 dark:text-white">
-          ANGULAR_WORKS
+          {{ optionsService.appName }}
         </h1>
         <p
           class="text-[8px] text-cyan-600 dark:text-cyan-500/60 uppercase tracking-widest leading-none"
         >
-          System_Core_v2.0
+          {{ transService.translate('SYSTEM_CORE') }}_v2.0
         </p>
       </div>
     </div>
@@ -67,7 +67,7 @@
       <button
         (click)="toggleLang()"
         class="px-2 py-1 border border-slate-200 dark:border-slate-800 text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors rounded-sm uppercase"
-        title="Switch Neural_Language"
+        [title]="transService.translate('SWITCH_LANGUAGE')"
       >
         {{ transService.lang() === 'en' ? 'TR' : 'EN' }}
       </button>
@@ -75,7 +75,7 @@
       <button
         (click)="themeService.toggleTheme()"
         class="p-2 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors rounded-sm"
-        title="Toggle Neuro-Theme"
+        [title]="transService.translate('TOGGLE_THEME')"
       >
         @if (themeService.isDark()) {
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,10 +105,10 @@
           ></div>
           <span
             class="text-[10px] text-emerald-600 dark:text-emerald-400 uppercase tracking-widest font-bold"
-            >Line_Secure</span
+            >{{ transService.translate('LINE_SECURE') }}</span
           >
         </div>
-        <span class="text-[8px] text-slate-500">Latency: 12ms</span>
+        <span class="text-[8px] text-slate-500">{{ transService.translate('LATENCY') }}: 12ms</span>
       </div>
 
       <button

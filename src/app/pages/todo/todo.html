@@ -3,7 +3,7 @@
 >
   <header class="flex flex-col gap-2">
     <h1 class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white uppercase">
-      &gt; Tasks_Matrix_v4.2 &gt; {{ today | date: 'dd.MM.yy' }}
+      &gt; {{ transService.translate('TASKS_MATRIX') }}_v4.2 &gt; {{ today | date: 'dd.MM.yy' }}
     </h1>
     <div
       class="h-px w-full bg-gradient-to-r from-cyan-600/50 dark:from-cyan-500/50 to-transparent"
@@ -12,7 +12,7 @@
 
   <div class="flex flex-col gap-2">
     <label class="text-[10px] text-slate-400 dark:text-slate-600 tracking-widest uppercase">
-      [ Search_Registry ]
+      [ {{ transService.translate('SEARCH_REGISTRY') }} ]
     </label>
     <div class="relative max-w-md">
       <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
@@ -21,7 +21,7 @@
       <input
         type="text"
         [(ngModel)]="todoService.search"
-        placeholder="SCAN_FOR_KEYWORDS..."
+        [placeholder]="transService.translate('SCAN_KEYWORDS')"
         class="w-full pl-9 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 outline-none text-xs tracking-[0.2em] uppercase transition-all"
       />
     </div>
@@ -42,7 +42,7 @@
         ></div>
         <header class="flex justify-between items-center">
           <h2 class="text-xl font-black tracking-tighter text-slate-900 dark:text-white uppercase">
-            &gt; Initializing_New_Task
+            &gt; {{ transService.translate('INIT_NEW_TASK') }}
           </h2>
           <button
             (click)="todoService.isCreateModalOpen = false"
@@ -66,13 +66,13 @@
             (click)="todoService.isCreateModalOpen = false"
             class="flex-1 border border-slate-200 dark:border-slate-800 p-3 text-[10px] uppercase font-black tracking-widest text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
           >
-            Abort_Operation
+            {{ transService.translate('ABORT_OP') }}
           </button>
           <button
             (click)="todoService.create()"
             class="flex-1 bg-cyan-600/10 border border-cyan-500/50 text-cyan-600 dark:text-cyan-400 p-3 text-[10px] uppercase font-black tracking-widest hover:bg-cyan-600 hover:text-white transition-all shadow-lg shadow-cyan-500/20"
           >
-            Execute_Commit
+            {{ transService.translate('EXECUTE_COMMIT') }}
           </button>
         </footer>
       </div>
@@ -92,7 +92,7 @@
         ></div>
         <header class="flex justify-between items-center">
           <h2 class="text-xl font-black tracking-tighter text-slate-900 dark:text-white uppercase">
-            &gt; Updating_Task_Parameters
+            &gt; {{ transService.translate('UPDATE_TASK_PARAMS') }}
           </h2>
           <button
             (click)="todoService.isEditModalOpen = false"
@@ -116,13 +116,13 @@
             (click)="todoService.isEditModalOpen = false"
             class="flex-1 border border-slate-200 dark:border-slate-800 p-3 text-[10px] uppercase font-black tracking-widest text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
           >
-            Abort_Update
+            {{ transService.translate('ABORT_UPDATE') }}
           </button>
           <button
             (click)="todoService.update()"
             class="flex-1 bg-amber-600/10 border border-amber-500/50 text-amber-600 dark:text-amber-400 p-3 text-[10px] uppercase font-black tracking-widest hover:bg-amber-600 hover:text-white transition-all shadow-lg shadow-amber-500/20"
           >
-            Apply_Parameters
+            {{ transService.translate('APPLY_PARAMS') }}
           </button>
         </footer>
       </div>
@@ -133,9 +133,9 @@
   <ng-template #modalForm>
     <div class="flex flex-col gap-4">
       <div class="flex flex-col gap-1">
-        <label class="text-[10px] uppercase tracking-widest text-slate-400 font-bold"
-          >Task_Identifier</label
-        >
+        <label class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">{{
+          transService.translate('TASK_ID')
+        }}</label>
         <input
           [(ngModel)]="todoService.taskNameModal"
           type="text"
@@ -145,9 +145,9 @@
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-[10px] uppercase tracking-widest text-slate-400 font-bold"
-          >Priority_Level</label
-        >
+        <label class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">{{
+          transService.translate('PRIORITY_LEVEL')
+        }}</label>
         <div class="grid grid-cols-3 gap-2">
           <button
             (click)="todoService.taskPriorityModal = 'low'"
@@ -155,7 +155,7 @@
             [class.text-emerald-500]="todoService.taskPriorityModal === 'low'"
             class="border border-slate-200 dark:border-slate-800 p-3 text-[10px] uppercase font-bold hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
           >
-            Low
+            {{ transService.translate('LOW') }}
           </button>
           <button
             (click)="todoService.taskPriorityModal = 'medium'"
@@ -163,7 +163,7 @@
             [class.text-amber-500]="todoService.taskPriorityModal === 'medium'"
             class="border border-slate-200 dark:border-slate-800 p-3 text-[10px] uppercase font-bold hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
           >
-            Medium
+            {{ transService.translate('MEDIUM') }}
           </button>
           <button
             (click)="todoService.taskPriorityModal = 'high'"
@@ -171,19 +171,19 @@
             [class.text-red-500]="todoService.taskPriorityModal === 'high'"
             class="border border-slate-200 dark:border-slate-800 p-3 text-[10px] uppercase font-bold hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
           >
-            High
+            {{ transService.translate('HIGH') }}
           </button>
         </div>
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-[10px] uppercase tracking-widest text-slate-400 font-bold"
-          >Core_Directives</label
-        >
+        <label class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">{{
+          transService.translate('CORE_DIRECTIVES')
+        }}</label>
         <textarea
           [(ngModel)]="todoService.taskDetailModal"
           rows="3"
-          placeholder="Enter task parameters..."
+          [placeholder]="transService.translate('DIRECTIVES_PLACEHOLDER')"
           class="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 p-3 text-sm focus:outline-none focus:border-cyan-500/50 transition-colors resize-none"
         ></textarea>
       </div>
@@ -198,7 +198,7 @@
         <label
           for="repeat"
           class="text-[10px] uppercase tracking-widest text-slate-500 font-bold cursor-pointer"
-          >Recursive_Protocol (Monthly)</label
+          >{{ transService.translate('RECURSIVE_PROTOCOL') }}</label
         >
       </div>
     </div>
