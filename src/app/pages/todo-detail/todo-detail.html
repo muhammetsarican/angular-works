@@ -1,0 +1,193 @@
+<div
+  class="flex flex-col gap-10 p-10 bg-slate-50 dark:bg-black text-slate-800 dark:text-slate-300 font-mono transition-colors duration-500 min-h-screen"
+>
+  <header class="flex flex-col gap-2">
+    <div class="flex items-center gap-4">
+      <a
+        routerLink="/todo"
+        class="text-xs text-cyan-600 dark:text-cyan-500 hover:underline flex items-center gap-1 uppercase tracking-widest font-black"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+        [ {{ transService.translate('RETURN') }} ]
+      </a>
+    </div>
+    <div class="flex justify-between items-end mt-4">
+      <h1 class="text-3xl font-black tracking-tighter text-slate-900 dark:text-white uppercase">
+        &gt; {{ transService.translate('TASK_DETAIL') }}::{{ todo?.id }}
+      </h1>
+      <span class="text-[10px] text-slate-400 dark:text-slate-600 tracking-widest uppercase">
+        REF_NODE: 0x{{ todo?.id }}
+      </span>
+    </div>
+    <div
+      class="h-px w-full bg-gradient-to-r from-cyan-600/50 dark:from-cyan-500/50 to-transparent"
+    ></div>
+  </header>
+
+  @if (todo) {
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Main Content -->
+      <div class="lg:col-span-2 flex flex-col gap-8">
+        <!-- Title & Status Section -->
+        <section
+          class="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-8 relative overflow-hidden group"
+        >
+          <div
+            class="absolute top-0 right-0 p-2 opacity-5 font-black text-6xl pointer-events-none select-none"
+          >
+            {{ todo.id }}
+          </div>
+
+          <div class="flex flex-col gap-6">
+            <div class="flex justify-between items-start">
+              <h2
+                class="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight"
+              >
+                {{ todo.name }}
+              </h2>
+              <div class="flex items-center gap-2">
+                @if (todo.status === 'done') {
+                  <span
+                    class="px-3 py-1 border border-emerald-500 text-emerald-500 text-[10px] font-black uppercase tracking-widest"
+                  >
+                    {{ transService.translate('STATUS_DONE') }}
+                  </span>
+                } @else if (todo.status === 'active') {
+                  <span
+                    class="px-3 py-1 border border-cyan-500 text-cyan-500 text-[10px] font-black uppercase tracking-widest animate-pulse"
+                  >
+                    {{ transService.translate('STATUS_ACTIVE') }}
+                  </span>
+                } @else {
+                  <span
+                    class="px-3 py-1 border border-amber-500 text-amber-500 text-[10px] font-black uppercase tracking-widest"
+                  >
+                    {{ transService.translate('STATUS_PENDING') }}
+                  </span>
+                }
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label
+                class="text-[10px] text-slate-400 dark:text-slate-600 uppercase tracking-[0.3em] font-black"
+              >
+                [ {{ transService.translate('CORE_DIRECTIVES') }} ]
+              </label>
+              <div
+                class="min-h-[200px] text-sm leading-relaxed text-slate-700 dark:text-slate-400 font-mono p-4 bg-slate-50 dark:bg-black/50 border border-slate-100 dark:border-slate-800/50 whitespace-pre-wrap"
+              >
+                {{ todo.detail || 'NO_DIRECTIVES_FOUND' }}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Metadata Section -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div
+            class="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6"
+          >
+            <label
+              class="text-[10px] text-slate-400 dark:text-slate-600 uppercase tracking-widest font-black"
+            >
+              PRIORITY_INDEX
+            </label>
+            <div
+              class="mt-2 text-xl font-black uppercase tracking-tighter"
+              [ngClass]="getPriorityColor()"
+            >
+              // {{ transService.translate(todo.priority.toUpperCase()) }}
+            </div>
+          </div>
+          <div
+            class="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6"
+          >
+            <label
+              class="text-[10px] text-slate-400 dark:text-slate-600 uppercase tracking-widest font-black"
+            >
+              RECURRENCE_PROTOCOL
+            </label>
+            <div
+              class="mt-2 text-xl font-black uppercase tracking-tighter text-slate-700 dark:text-slate-300"
+            >
+              {{ todo.repeatEveryMonth ? 'ENABLED_MONTHLY' : 'SINGLE_INSTANCE' }}
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Sidebar / Actions -->
+      <div class="flex flex-col gap-6">
+        <div
+          class="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 flex flex-col gap-4"
+        >
+          <h3
+            class="text-[10px] text-slate-400 dark:text-slate-600 uppercase tracking-[0.3em] font-black mb-2"
+          >
+            ACTIONS_OVERRIDE
+          </h3>
+          <button
+            (click)="todoService.openEditModal(todo)"
+            class="w-full p-4 border border-cyan-500/50 bg-cyan-500/5 text-cyan-600 dark:text-cyan-400 text-[10px] font-black uppercase tracking-widest hover:bg-cyan-500 hover:text-white transition-all text-left flex justify-between"
+          >
+            <span>{{ transService.translate('UPDATE_TASK_PARAMS') }}</span>
+            <span>&gt;_</span>
+          </button>
+          <button
+            (click)="deleteTodo(todo.id)"
+            class="w-full p-4 border border-red-500/50 bg-red-500/5 text-red-600 dark:text-red-400 text-[10px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all text-left flex justify-between"
+          >
+            <span>{{ transService.translate('TERMINATE_PROCESS') }}</span>
+            <span>&gt;_</span>
+          </button>
+        </div>
+
+        <div
+          class="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 flex flex-col gap-4"
+        >
+          <h3
+            class="text-[10px] text-slate-400 dark:text-slate-600 uppercase tracking-[0.3em] font-black mb-2"
+          >
+            SYSTEM_STATUS
+          </h3>
+          <div class="flex flex-col gap-2 text-[10px] font-mono">
+            <div class="flex justify-between">
+              <span class="text-slate-400">LATENCY:</span>
+              <span class="text-emerald-500">0.02ms</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">SYNC_LVL:</span>
+              <span class="text-emerald-500">100%</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">UPTIME:</span>
+              <span class="text-cyan-500">99.9%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div
+      class="flex flex-col items-center justify-center py-20 border border-dashed border-slate-200 dark:border-slate-800"
+    >
+      <div class="text-red-500 font-black text-xl uppercase tracking-tighter mb-4">
+        ERR_404: TASK_NOT_FOUND
+      </div>
+      <a
+        routerLink="/todo"
+        class="text-xs text-cyan-600 dark:text-cyan-500 hover:underline uppercase tracking-widest font-black"
+      >
+        [ RETURN_TO_LIST ]
+      </a>
+    </div>
+  }
+</div>

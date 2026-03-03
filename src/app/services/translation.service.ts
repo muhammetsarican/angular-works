@@ -102,7 +102,9 @@ export class TranslationService {
       CONFIG_OVERRIDE: 'Config_Override',
       STREAM_ANALYTICS: 'Stream_Analytics',
       SYSTEM_LOGS: 'System_Logs',
-      AUTH_SYSTEM_ONLINE: 'Unit_Auth_System_Online'
+      AUTH_SYSTEM_ONLINE: 'Unit_Auth_System_Online',
+      TASK_DETAIL: 'Task_Detail',
+      TERMINATE_PROCESS: 'Terminate_Process'
     },
     tr: {
       WELCOME: 'HOŞ GELDİNİZ',
@@ -196,7 +198,9 @@ export class TranslationService {
       CONFIG_OVERRIDE: 'Yapılandırma_Geçersiz_Kılma',
       STREAM_ANALYTICS: 'Akış_Analizi',
       SYSTEM_LOGS: 'Sistem_Günlükleri',
-      AUTH_SYSTEM_ONLINE: 'Birim_Yetkilendirme_Sistemi_Çevrimiçi'
+      AUTH_SYSTEM_ONLINE: 'Birim_Yetkilendirme_Sistemi_Çevrimiçi',
+      TASK_DETAIL: 'Görev_Ayrıntısı',
+      TERMINATE_PROCESS: 'Süreci_Sonlandır'
     }
   };
 

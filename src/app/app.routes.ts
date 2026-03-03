@@ -1,7 +1,9 @@
-import { Routes } from '@angular/router';
+import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { authGuard } from './guard/auth-guard';
 import { childAuthGuard } from './guard/child-auth-guard';
 import { confirmLogoutGuard } from './guard/confirm-logout-guard';
+import { inject } from '@angular/core';
+import { HttpService } from './services/http.service';
 
 export const routes: Routes = [
   {
@@ -28,6 +30,16 @@ export const routes: Routes = [
   {
     path: 'todo',
     loadComponent: () => import('./pages/todo/todo').then((m) => m.Todo)
+  },
+  {
+    path: 'todo/:id',
+    loadComponent: () => import('./pages/todo-detail/todo-detail').then((m) => m.TodoDetail),
+    resolve: {
+      todo: async ({ params }: ActivatedRouteSnapshot) => {
+        const http = inject(HttpService)
+        return http.get('https://jsonplaceholder.typicode.com/todos/' + params['id'])
+      }
+    },
   },
   {
     path: 'products',
